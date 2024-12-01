@@ -9,6 +9,7 @@ terraform {
 provider "azurerm" {
   subscription_id = "a95dbe9e-bf88-4327-88b8-f85c96e18436"
   features {}
+  version = "=2.48.0"
 }
 
 resource "azurerm_resource_group" "rg-sud-auto" {
@@ -30,6 +31,12 @@ resource "azurerm_kubernetes_cluster" "k8s-cluster" {
     name = "default"
     node_count = 1
     vm_size = "Standard_D2_v2"
+  }
+
+  addon_profile {
+    http_application_routing {
+      enabled =  true
+    }
   }
   
 }
